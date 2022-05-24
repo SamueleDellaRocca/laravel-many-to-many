@@ -46,6 +46,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Slug</th>
                     <th scope="col">Categoria</th>
+                    <th scope="col">Tags</th>
                     <th scope="col">Created at</th>
                     <th scope="col">updated at</th>
                 </tr>
@@ -57,6 +58,7 @@
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->slug }}</td>
                         <td>{{ $post->category->name }}</td>
+                        <td>{{ $post->tags->pluck('name')->join(', ') }}</td>
                         <td>{{ $post->created_at }}</td>
                         <td>{{ $post->updated_at }}</td>
                         <td><a class="btn btn-primary" href="{{ route('admin.posts.show', $post->slug) }}">SHOW</a></td>
