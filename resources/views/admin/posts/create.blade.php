@@ -40,12 +40,18 @@
                 @enderror
             </div>
 
-            <div>
+            <div class="mb-3">
                 <fieldset>
                     <legend>Tags</legend>
-                    @foreach ($tags as $tag)
-                        <input type="checkbox" name="tags[]" value="{{ $tag->id }}" id="tag-{{ $tag->id }}">
-                        <label for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+                    <div class="d-flex gap-5">
+                        @foreach ($tags as $tag)
+                            <div>
+                                <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                                    id="tag-{{ $tag->id }}">
+                                <label class="mr-3" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
                 </fieldset>
             </div>
 

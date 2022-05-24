@@ -172,7 +172,10 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate($this->getValidators($post));
-        $post->update($request->all());
+
+        $formData = $request->all();
+        $post->tags()->xsync($formData['tags']);
+        $post->update($formData);
         return redirect()->route('admin.posts.show', $post->slug);
     }
 
@@ -186,6 +189,7 @@ class PostController extends Controller
     {
         if (Auth::user()->id !== $post->user_id) abort(403);
 
+        $post->tags()->detach();
         $post->delete();
 
         return redirect()->route('admin.posts.index');
