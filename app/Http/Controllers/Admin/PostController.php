@@ -151,12 +151,14 @@ class PostController extends Controller
     public function edit(Post $post)
     {   
         $categories = Category::all();
+        $tags = Tag::all();
 
         if (Auth::user()->id !== $post->user_id) abort(403);
 
         $data = [
             'post' => $post,
             'categories' => $categories,
+            'tags' => $tags,
         ];
 
         return view('admin.posts.edit', $data);
@@ -174,7 +176,7 @@ class PostController extends Controller
         $request->validate($this->getValidators($post));
 
         $formData = $request->all();
-        $post->tags()->xsync($formData['tags']);
+        $post->tags()->sync($formData['tags']);
         $post->update($formData);
         return redirect()->route('admin.posts.show', $post->slug);
     }

@@ -9,6 +9,8 @@
         <form action="{{ route('admin.posts.update', $post->slug) }}" method="post">
             @csrf
             @method('PUT')
+
+
             <div class="form-group mb-4">
                 <label for="title">Titolo</label>
                 <input type="text" class="form-control mb-2" id="title" name="title" placeholder="Titolo"
@@ -17,6 +19,9 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
+
+
+
             <div class="form-group mb-4">
                 <label for="slug">Slug</label>
                 <input type="text" class="form-control mb-2" id="slug" name="slug" placeholder="Slug"
@@ -25,6 +30,9 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
+
+
+
             <div class="input-group mb-3">
                 <select class="custom-select input-group-text w-100 text-start" id="category_id" name="category_id">
                     <option selected>Scegli una categoria</option>
@@ -37,6 +45,25 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
+
+
+            <div class="mb-3">
+                <fieldset>
+                    <legend>Tags</legend>
+                    <div class="d-flex gap-5">
+                        @foreach ($tags as $tag)
+                            <div>
+                                <input type="checkbox" name="tags[]" id="tag-{{ $tag->id }}"
+                                    value="{{ $tag->id }}" @if (in_array($tag->id, old('tags', []))) checked @endif>
+                                <label class="mr-3" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </fieldset>
+            </div>
+
+
+
             <div class="form-group mb-4">
                 <label for="content">Content</label>
                 <textarea class="form-control mb-2" id="content" name="content" placeholder="Content"

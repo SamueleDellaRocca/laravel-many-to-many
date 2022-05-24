@@ -20,7 +20,7 @@
                 <label for="slug">Slug</label>
                 <input type="text" class="form-control mb-2" id="slug" name="slug" placeholder="Slug"
                     value="{{ old('slug') }}">
-                <input type="button" value="Generate slug" id="btn-slugger" class="btn btn-primary">
+                <input type="button" value="Generate slug" id="btn-slugger" class="btn btn-primary mb-2">
                 @error('slug')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -28,7 +28,7 @@
 
 
             <div class="input-group mb-3">
-                <select class="custom-select input-group-text w-100 text-start" id="category_id" name="category_id">
+                <select class="custom-select input-group-text w-100 text-start mb-2" id="category_id" name="category_id">
                     <option selected>Scegli una categoria</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" @if ($category->id == old('category_id')) selected @endif>
@@ -47,7 +47,7 @@
                         @foreach ($tags as $tag)
                             <div>
                                 <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
-                                    id="tag-{{ $tag->id }}">
+                                    id="tag-{{ $tag->id }}" @if (in_array($tag->id, old('tags', []))) checked @endif>
                                 <label class="mr-3" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
                             </div>
                         @endforeach
