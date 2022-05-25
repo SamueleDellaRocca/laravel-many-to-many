@@ -69,10 +69,13 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $posts = Post::where('1 = 1');
+        $posts = Post::whereRaw('1 = 1');
         
         if ($request->s) {
-            $posts->where('title', 'LIKE', "%$request->s%");
+            $posts->where(function($query) use ($request) { // per aggiungere le parentesi nell'SQL
+                $query->where('title', 'LIKE', "%$request->s%")
+                    ->orWhere('content', 'LIKE', "%$request->s%");
+            });
         }
         if ($request->category) {
             $posts->where('category_id', $request->category);
@@ -81,8 +84,8 @@ class PostController extends Controller
             $posts->where('user_id', $request->author);
         }
         
+        $posts = $posts->paginate(25);
         
-        $posts = Post::paginate(25);
         $categories = Category::all();
         $users = User::all();
 
