@@ -106,7 +106,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->posts()->detach('category_id');
+        $category->posts()->detach();
 
         $category->delete();
 

@@ -54,8 +54,8 @@
                         @foreach ($tags as $tag)
                             <div>
                                 <input type="checkbox" name="tags[]" id="tag-{{ $tag->id }}"
-                                    value="{{ $tag->id }}" @if (in_array($tag->id, old('tags', []))) checked @endif>
-                                <label class="mr-3" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+                                    value="{{ $tag->id }}" @if (in_array($tag->id, old('tags', $post->tags->pluck('id')->all()))) checked @endif>
+                                <label for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
                             </div>
                         @endforeach
                     </div>
